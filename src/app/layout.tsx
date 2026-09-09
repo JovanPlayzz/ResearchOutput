@@ -37,6 +37,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: { default: "StapL", template: "%s · StapL" },
   description: "A student portal for classes, announcements, calendar, grades, and to-dos.",
+  appleWebApp: { title: "StapL" },
 };
 
 // Runs before paint: if no theme cookie was set, follow the system preference.
