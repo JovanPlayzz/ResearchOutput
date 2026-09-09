@@ -74,10 +74,10 @@ For a production build: `npm run build` then `npm start`.
 ## How it's built
 
 - **Next.js 16** (App Router) with React Server Components for reads and Server Actions for every mutation. No separate API layer.
-- **SQLite** via **Drizzle ORM** and `better-sqlite3`. The schema is in `src/db/schema.ts`; migrations in `drizzle/` run automatically at startup.
+- **SQLite** via **Drizzle ORM** and the `libsql` client. On a PC the database is the file `data/portal.db`; on Vercel it is a hosted [Turso](https://turso.tech) database, using the same schema (`src/db/schema.ts`) and migrations (`drizzle/`).
 - **Auth** is a plain session cookie: passwords are hashed with Node's built-in `scrypt`, sessions live in the `sessions` table. No third-party service.
 - **Tailwind CSS 4** with a custom paper/ink palette defined as CSS variables in `src/app/globals.css`. Dark mode is a `data-theme` attribute stored in a cookie.
-- Uploaded files go to `uploads/` (outside `public/`) and are served through an access-checked route at `/api/files/[id]`.
+- Uploaded files go through `src/lib/storage.ts`: the `uploads/` folder on a PC, Vercel Blob (private) when deployed. They are served through access-checked routes under `/api/files` and `/api/images`.
 - **Phones** get the same pages, laid out for a thumb: the sidebar becomes a drawer behind the menu button, the timetable shows one day at a time (tap a day or swipe sideways), wide grade tables keep their first column pinned while you scroll, and folders on the People page are picked up with a short hold before dragging so the page can still scroll normally.
 
 ```
@@ -92,6 +92,16 @@ src/
   db/               schema, connection, demo seed (builds a conflict-free timetable)
   lib/              auth, queries, schedule helpers, utils
 ```
+
+## Host it on Vercel (free)
+
+The portal runs on Vercel with a Turso database and a Vercel Blob store, all on free plans. Nothing changes in the code: the app switches to the hosted database and file store when the `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, and `BLOB_READ_WRITE_TOKEN` variables are present, which Vercel sets when the integrations are connected.
+
+Updating the live site: commit your changes and push to GitHub. Vercel builds and deploys every push to `master` in a minute or two. (Without GitHub, `npx vercel --prod` deploys the folder directly.)
+
+Moving a PC-hosted school to the cloud: `vercel env pull .env.local --yes` then `node scripts/import-to-turso.mjs`. It copies every table and every uploaded file, and can be re-run safely.
+
+Keep a copy of `data/` and `uploads/` before demos; that folder is your offline fallback (`npm run share`).
 
 ## Share it from your PC (free)
 
@@ -113,6 +123,7 @@ Press Ctrl+C in that window to stop sharing.
 | `npm run build`       | Production build                               |
 | `npm start`           | Serve the production build                     |
 | `npm run share`       | Serve it and publish a fixed public address    |
+| `node tests/e2e.mjs`  | Browser tests against a running server (see file header) |
 | `npm run lint`        | ESLint                                         |
 | `npm run db:reset`    | Delete the database (re-seeded on next start)  |
 | `npm run db:studio`   | Browse the database in Drizzle Studio          |
