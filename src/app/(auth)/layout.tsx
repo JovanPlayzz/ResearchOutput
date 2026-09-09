@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <span className="grid h-8 w-8 place-items-center rounded-[6px] bg-ink text-paper-2">
             <GraduationCap size={17} />
           </span>
-          <span className="font-display text-[1.25rem]">Homeroom</span>
+          <span className="font-display text-[1.25rem]">StapL</span>
         </Link>
         <ThemeToggle />
       </header>

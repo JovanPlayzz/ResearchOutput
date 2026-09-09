@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: { default: "Homeroom", template: "%s · Homeroom" },
+  title: { default: "StapL", template: "%s · StapL" },
   description: "A student portal for classes, announcements, calendar, grades, and to-dos.",
 };
 

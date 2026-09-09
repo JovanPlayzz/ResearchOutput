@@ -1,5 +1,5 @@
 // Serve the production build from this PC and publish it on the internet through
-// Tailscale Funnel, at a fixed address like https://homeroom.<tailnet>.ts.net.
+// Tailscale Funnel, at a fixed address like https://stapl.<tailnet>.ts.net.
 //
 //   npm run share
 //

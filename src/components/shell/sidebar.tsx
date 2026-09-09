@@ -39,7 +39,7 @@ export function Sidebar({ user, unread, viewing }: { user: CurrentUser; unread: 
   return (
     <div className="flex h-full flex-col">
       <div className="sb-head border-b border-dashed border-line-2 px-4 pb-4 pt-5">
-        <Brand schoolName={school?.name ?? "Homeroom"} />
+        <Brand schoolName={school?.name ?? "StapL"} />
         {school ? (
           <div className="sb-text">
             <QuarterPicker viewing={viewing} current={school.currentQuarter} schoolYear={school.schoolYear} />

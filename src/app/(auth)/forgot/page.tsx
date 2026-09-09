@@ -10,7 +10,7 @@ export default function ForgotPage() {
       <Folder tab="Forgot password" bodyClassName="p-6 sm:p-7">
         <h1 className="text-[1.9rem]">Ask your school admin.</h1>
         <p className="mt-2 text-ink-2">
-          Homeroom runs inside your school and doesn&rsquo;t send email, so passwords are reset by a person, not a link.
+          StapL runs inside your school and doesn&rsquo;t send email, so passwords are reset by a person, not a link.
         </p>
         <ol className="ruled margin-line mt-4 pl-12 text-[15px] text-ink-2" style={{ ["--rule-h" as string]: "2rem" }}>
           <li>Go to your school admin (or your adviser, who can ask them).</li>

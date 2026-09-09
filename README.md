@@ -1,4 +1,4 @@
-# Homeroom — a student portal
+# StapL — a student portal
 
 A school portal for **admins, teachers, and students** in one place: sections and subjects, a weekly timetable, classwork with grading by quarter, announcements that can't get buried, a shared calendar, and personal to-do lists. Built for a research project on integrating the scattered tools a school usually uses (group chats, classroom apps, paper calendars) into a single portal.
 
@@ -108,8 +108,8 @@ Keep a copy of `data/` and `uploads/` before demos; that folder is your offline 
 The portal can run on your own computer and still have a fixed web address, using [Tailscale Funnel](https://tailscale.com/kb/1223/funnel). It costs nothing and needs no domain. The site is only up while your PC is on and the command below is running.
 
 1. Install Tailscale and sign in with a free personal account: `winget install tailscale.tailscale`, then open Tailscale from the Start menu.
-2. Name this PC so the address reads well: `tailscale set --hostname homeroom`
-3. Run `npm run share`. It builds the site if needed, starts the server, opens the tunnel, and prints your address, for example `https://homeroom.tail1234.ts.net`.
+2. Name this PC so the address reads well: `tailscale set --hostname stapl`
+3. Run `npm run share`. It builds the site if needed, starts the server, opens the tunnel, and prints your address, for example `https://stapl.tail1234.ts.net`.
 4. The first time, Tailscale prints a link to switch Funnel on for your account. Click it, approve, and run `npm run share` again.
 5. Keep the PC awake: Settings → System → Power → set "Sleep" to Never while plugged in.
 

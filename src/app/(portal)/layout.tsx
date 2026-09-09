@@ -9,7 +9,7 @@ export default async function PortalLayout({ children }: { children: React.React
   const unread = await unreadAnnouncementCount(user);
   const viewing = await viewQuarter(user);
   return (
-    <PortalShell sidebar={<Sidebar user={user} unread={unread} viewing={viewing} />} brand={<Brand schoolName={user.school?.name ?? "Homeroom"} />}>
+    <PortalShell sidebar={<Sidebar user={user} unread={unread} viewing={viewing} />} brand={<Brand schoolName={user.school?.name ?? "StapL"} />}>
       {children}
     </PortalShell>
   );

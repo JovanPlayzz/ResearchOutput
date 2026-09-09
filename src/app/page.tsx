@@ -19,7 +19,7 @@ import { buttonClass } from "@/components/ui/button";
 import { DeskMock } from "@/components/marketing/desk-mock";
 
 export const metadata: Metadata = {
-  title: "Homeroom · one desk for the whole school",
+  title: "StapL · one desk for the whole school",
   description: "A student portal that keeps sections, subjects, timetables, classwork, grades, and announcements in one place.",
 };
 
@@ -91,7 +91,7 @@ export default async function LandingPage() {
             <span className="grid h-8 w-8 place-items-center rounded-[6px] bg-ink text-paper-2">
               <GraduationCap size={17} />
             </span>
-            <span className="font-display text-[1.3rem]">Homeroom</span>
+            <span className="font-display text-[1.3rem]">StapL</span>
           </Link>
           <nav className="hidden items-center gap-6 text-sm text-ink-2 md:flex" aria-label="Sections of this page">
             <a href="#features" className="hover:text-ink">
@@ -156,7 +156,7 @@ export default async function LandingPage() {
               <h2 className="text-[1.75rem] leading-tight sm:text-[2rem]">Schools already have all the information. It&rsquo;s just in five places.</h2>
               <p className="mt-3 max-w-[38rem] text-ink-2">
                 The exam schedule is a photo in a group chat. The timetable is a printout on the wall. Grades live in a spreadsheet only the
-                teacher can open. Homeroom puts each of those in a folder that everyone who needs it can open, and nothing else.
+                teacher can open. StapL puts each of those in a folder that everyone who needs it can open, and nothing else.
               </p>
             </div>
             <div className="sticky-note rounded-[3px] px-4 py-3 text-[14px] leading-snug md:justify-self-end">
@@ -293,7 +293,7 @@ export default async function LandingPage() {
       <footer className="border-t border-line-2">
         <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-3 px-5 py-6 text-[13px] text-ink-3 sm:px-8">
           <span className="inline-flex items-center gap-2">
-            <GraduationCap size={14} /> Homeroom · a student portal built for a school research project
+            <GraduationCap size={14} /> StapL · a student portal built for a school research project
           </span>
           <span className="flex gap-4">
             <Link href="/login" className="hover:text-ink">
