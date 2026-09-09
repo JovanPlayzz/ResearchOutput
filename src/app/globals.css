@@ -215,36 +215,42 @@ input::placeholder, textarea::placeholder {
   opacity: 0.8;
 }
 
-/* Manila folder tab: sits on top of a .folder-body. Drawn with two clipped layers so the
-   slanted edge has a crisp 1px border that lines up with the body. */
+/* Manila folder tab: sits on top of a .folder-body. Square-ish on the left; on the right
+   a slanted edge that curves smoothly out of the top (a skewed box keeps its rounded corner). */
 .folder-tab {
   position: relative;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.45rem 1.2rem;
+  padding: 0.45rem 0.85rem 0.45rem 1.2rem;
   margin-left: 14px;
+  margin-right: 24px; /* room for the slanted edge */
   margin-bottom: -1px;
   font-family: var(--font-display), Georgia, serif;
   font-size: 1.05rem;
   color: var(--ink);
+  background: var(--manila);
+  border: 1px solid var(--line-2);
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 8px;
 }
-.folder-tab::before,
 .folder-tab::after {
   content: "";
   position: absolute;
   z-index: -1;
-}
-.folder-tab::before {
-  inset: 0;
-  background: var(--line-2);
-  border-radius: 8px 8px 0 0;
-}
-.folder-tab::after {
-  inset: 1px 1px 0 1px;
+  top: -1px;
+  bottom: 0;
+  left: 100%;
+  width: 26px;
   background: var(--manila);
-  border-radius: 7px 7px 0 0;
+  border: 1px solid var(--line-2);
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 14px;
+  transform: skewX(24deg);
+  transform-origin: bottom left;
 }
 .folder-body {
   background: var(--paper-2);
