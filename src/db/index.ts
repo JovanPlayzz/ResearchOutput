@@ -29,22 +29,24 @@ function create(): Db {
   return drizzle(createClient({ url: `file:${LOCAL_FILE.replace(/\\/g, "/")}` }), { schema });
 }
 
-/** Applies pending migrations, then seeds the demo school when the database is empty. */
+/**
+ * Local file: apply pending migrations, then seed the demo school when empty.
+ * Hosted database: migrations run at build time (scripts/migrate.mjs); data is
+ * imported from a real school, so it is only seeded when SEED_DEMO=1.
+ */
 async function prepare(database: Db): Promise<void> {
-  if (!REMOTE_URL) {
-    await database.$client.execute("PRAGMA journal_mode = WAL");
-    await database.$client.execute("PRAGMA foreign_keys = ON");
+  if (REMOTE_URL) {
+    if (process.env.SEED_DEMO === "1") await seedIfEmpty(database);
+    return;
   }
+  await database.$client.execute("PRAGMA journal_mode = WAL");
+  await database.$client.execute("PRAGMA foreign_keys = ON");
   try {
     await migrate(database, { migrationsFolder: MIGRATIONS });
   } catch (err) {
-    throw new Error(
-      `[db] Could not bring the database up to date: ${(err as Error).message}. ` +
-        (REMOTE_URL ? "Check the Turso connection settings." : "If this is a throwaway local database, run `npm run db:reset`."),
-    );
+    throw new Error(`[db] Could not bring the database up to date: ${(err as Error).message}. If this is a throwaway local database, run \`npm run db:reset\`.`);
   }
-  // The hosted database is filled by importing real data, not by the demo seed, unless asked.
-  if (!REMOTE_URL || process.env.SEED_DEMO === "1") await seedIfEmpty(database);
+  await seedIfEmpty(database);
 }
 
 // Reuse one connection across hot reloads in development.
