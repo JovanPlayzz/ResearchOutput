@@ -1,26 +1,700 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------------
+   Palette. Light mode is warm writing paper; dark mode is a desk lamp
+   at night: charcoal paper, cream ink, the same red pen.
+   ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f4efe4;
+  --paper-2: #fcf9f2;
+  --paper-3: #ebe4d3;
+  --paper-4: #e3dac4;
+  --ink: #1f1c18;
+  --ink-2: #4d4840;
+  --ink-3: #8a8276;
+  --line: #d6cdb8;
+  --line-2: #bfb59c;
+  --rule: #cfdbe6;
+  --margin: #d98b84;
+  --accent: #2f4f8f;
+  --accent-soft: #dfe7f5;
+  --accent-ink: #ffffff;
+  --red: #b83a2c;
+  --red-soft: #f6dcd7;
+  --green: #3c7a4a;
+  --green-soft: #dbeadd;
+  --amber: #a86a12;
+  --amber-soft: #f6e7c8;
+  --manila: #eedaa3;
+  --manila-2: #dcc27f;
+  --sticky: #fff3a3;
+  --shadow: 0 1px 2px rgba(60, 45, 20, 0.08), 0 1px 0 rgba(60, 45, 20, 0.04);
+  --shadow-lg: 0 10px 30px -10px rgba(60, 45, 20, 0.25);
+
+  --c-blue: #2f4f8f;
+  --c-red: #b83a2c;
+  --c-green: #3c7a4a;
+  --c-amber: #b7791f;
+  --c-violet: #6b4c9a;
+  --c-teal: #2a7f7a;
+  --c-rose: #b9476f;
+  --c-slate: #5b6673;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --paper: #161718;
+  --paper-2: #1e2022;
+  --paper-3: #26292c;
+  --paper-4: #111213;
+  --ink: #ebe6da;
+  --ink-2: #b7b1a4;
+  --ink-3: #7d786f;
+  --line: #2e3236;
+  --line-2: #42474d;
+  --rule: #26313a;
+  --margin: #8d4a45;
+  --accent: #93b3ea;
+  --accent-soft: #1f2b40;
+  --accent-ink: #0f1420;
+  --red: #e07b6e;
+  --red-soft: #3a211e;
+  --green: #7fbb8e;
+  --green-soft: #1e3024;
+  --amber: #dba447;
+  --amber-soft: #3a2f16;
+  --manila: #4a3f22;
+  --manila-2: #5f512c;
+  --sticky: #4a4420;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+
+  --c-blue: #8fb0e8;
+  --c-red: #e07b6e;
+  --c-green: #7fbb8e;
+  --c-amber: #dba447;
+  --c-violet: #b39ddb;
+  --c-teal: #6cc4be;
+  --c-rose: #e08aab;
+  --c-slate: #9aa6b2;
+
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-paper-4: var(--paper-4);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-rule: var(--rule);
+  --color-margin: var(--margin);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-manila: var(--manila);
+  --color-manila-2: var(--manila-2);
+  --color-sticky: var(--sticky);
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-mono), ui-monospace, "Cascadia Mono", monospace;
+
+  --shadow-paper: var(--shadow);
+  --shadow-paper-lg: var(--shadow-lg);
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@layer base {
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+html {
+  background: var(--paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Faint paper grain over everything. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="dark"] body::before {
+  opacity: 0.25;
+}
+
+::selection {
+  background: var(--manila);
+  color: var(--ink);
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--ink-3);
+}
+}
+
+@layer components {
+/* ------------------------------------------------------------------
+   Notebook & folder details
+   ------------------------------------------------------------------ */
+
+/* Horizontal ruled lines, like notebook paper. Line height matches the rule spacing. */
+.ruled {
+  --rule-h: 2rem;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--rule-h) - 1px),
+    var(--rule) calc(var(--rule-h) - 1px),
+    var(--rule) var(--rule-h)
+  );
+  background-attachment: local;
+  line-height: var(--rule-h);
+}
+
+/* Red vertical margin line on the left. */
+.margin-line {
+  position: relative;
+}
+.margin-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.75rem;
+  width: 1px;
+  background: var(--margin);
+  opacity: 0.8;
+}
+
+/* Manila folder tab: sits on top of a .folder-body. Drawn with two clipped layers so the
+   slanted edge has a crisp 1px border that lines up with the body. */
+.folder-tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.2rem;
+  margin-left: 14px;
+  margin-bottom: -1px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.folder-tab::before,
+.folder-tab::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+.folder-tab::before {
+  inset: 0;
+  background: var(--line-2);
+  border-radius: 8px 8px 0 0;
+}
+.folder-tab::after {
+  inset: 1px 1px 0 1px;
+  background: var(--manila);
+  border-radius: 7px 7px 0 0;
+}
+.folder-body {
+  background: var(--paper-2);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+/* Rubber stamp label. */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.3rem 0.45rem 0.25rem;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  transform: rotate(-2deg);
+  opacity: 0.9;
+}
+
+/* A sticky note. */
+.sticky-note {
+  background: var(--sticky);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  transform: rotate(-0.6deg);
+}
+
+/* Index-tab navigation in the sidebar. */
+.nav-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.9rem;
+  border-radius: 6px 0 0 6px;
+  color: var(--ink-2);
+  border: 1px solid transparent;
+  border-right: none;
+  margin-right: -1px;
+  transition: background-color 120ms ease, color 120ms ease, transform 160ms ease;
+}
+.nav-tab:hover {
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  color: var(--ink);
+  transform: translateX(2px);
+}
+.nav-tab[data-active="true"] {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line-2);
+  box-shadow: -1px 1px 0 rgba(60, 45, 20, 0.04);
+}
+.nav-tab[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--red);
+}
+
+/* Handwritten-ish score circle. */
+.score-circle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.05rem;
+  transform: rotate(-4deg);
+}
+}
+
+@layer base {
+/* ------------------------------------------------------------------
+   Big manila folders (admin People page)
+   ------------------------------------------------------------------ */
+.folder {
+  position: relative;
+  display: block;
+  aspect-ratio: 5 / 3.6;
+  min-height: 132px;
+  color: inherit;
+  text-decoration: none;
+  transform-style: preserve-3d;
+}
+.folder-back {
+  position: absolute;
+  inset: 12px 0 0 0;
+  background: var(--manila-2);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+}
+.folder-back::before {
+  /* the tab */
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: -1px;
+  width: 44%;
+  height: 16px;
+  background: var(--manila-2);
+  border: 1px solid var(--line-2);
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
+}
+.folder-tab-label {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  z-index: 1;
+  font-family: var(--font-mono), monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 12px;
+  color: var(--ink-2);
+}
+.folder-paper {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 22px;
+  height: 46%;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 9px, var(--rule) 9px, var(--rule) 10px);
+  transition: transform 220ms ease;
+}
+.folder-front {
+  position: absolute;
+  inset: 40% 0 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px 10px;
+  background: var(--manila);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  transform-origin: bottom center;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.folder-grip {
+  position: absolute;
+  right: 6px;
+  top: 16px;
+  padding: 2px;
+  color: var(--ink-3);
+  opacity: 0.35;
+  transition: opacity 150ms ease;
+}
+.folder-lifted {
+  transform: translateY(-8px) scale(1.04) rotate(-1.5deg);
+  filter: drop-shadow(0 22px 24px rgba(30, 20, 5, 0.28));
+  animation: lift 160ms ease-out both;
+}
+.folder-lifted .folder-front {
+  transform: perspective(700px) rotateX(-9deg) translateY(1px);
+}
+.folder-lifted .folder-paper {
+  transform: translateY(-9px);
+}
+@keyframes lift {
+  from { transform: translateY(0) scale(1) rotate(0deg); filter: drop-shadow(0 2px 4px rgba(30, 20, 5, 0.1)); }
+}
+.folder:hover .folder-front,
+.folder:focus-visible .folder-front {
+  transform: perspective(700px) rotateX(-7deg) translateY(1px);
+  box-shadow: var(--shadow-lg);
+}
+.folder:hover .folder-paper,
+.folder:focus-visible .folder-paper {
+  transform: translateY(-7px);
+}
+.folder:hover .folder-grip {
+  opacity: 1;
+}
+.folder:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Calendar legend toggles hide a kind of item. */
+.hide-school [data-kind="school"],
+.hide-holiday [data-kind="holiday"],
+.hide-exam [data-kind="exam"],
+.hide-activity [data-kind="activity"],
+.hide-meeting [data-kind="meeting"],
+.hide-class [data-kind="class"],
+.hide-due [data-kind="due"] {
+  display: none !important;
+}
+
+/* Sidebar width animates when collapsing or expanding (not while dragging). */
+@property --sidebar-w {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 248px;
+}
+.portal-shell-animated {
+  transition: --sidebar-w 220ms ease;
+}
+
+/* Collapsed sidebar: icons only, labels hidden, tooltips via title. Desktop only. */
+@media (min-width: 48rem) {
+  .sidebar[data-collapsed="true"] .sb-text {
+    display: none;
+  }
+  .sidebar[data-collapsed="true"] .sb-head {
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .sidebar[data-collapsed="true"] .sb-nav {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .sidebar[data-collapsed="true"] .nav-tab {
+    justify-content: center;
+    padding: 0.6rem 0;
+    margin-right: 0;
+    border-radius: 6px;
+    border-right: 1px solid transparent;
+  }
+  .sidebar[data-collapsed="true"] .nav-tab[data-active="true"] {
+    border-color: var(--line-2);
+  }
+  .sidebar[data-collapsed="true"] .nav-tab[data-active="true"]::before {
+    display: none;
+  }
+  .sidebar[data-collapsed="true"] .nav-tab:hover {
+    transform: none;
+  }
+  .sidebar[data-collapsed="true"] .nav-label {
+    display: none;
+  }
+  .sidebar[data-collapsed="true"] .nav-badge {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    padding: 0 4px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .sidebar[data-collapsed="true"] .sb-footer {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .sidebar[data-collapsed="true"] .sb-user {
+    justify-content: center;
+  }
+  .sidebar[data-collapsed="true"] .sb-footer-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sidebar[data-collapsed="true"] .sb-signout {
+    margin-left: 0;
+  }
+  .sidebar[data-collapsed="true"] .sb-signout button {
+    padding: 0;
+    width: 2rem;
+    justify-content: center;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Home screen motions
+   ------------------------------------------------------------------ */
+/* Children arrive one after another. */
+.stagger > * {
+  animation: rise 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.stagger > :nth-child(1) { animation-delay: 60ms; }
+.stagger > :nth-child(2) { animation-delay: 115ms; }
+.stagger > :nth-child(3) { animation-delay: 170ms; }
+.stagger > :nth-child(4) { animation-delay: 225ms; }
+.stagger > :nth-child(5) { animation-delay: 280ms; }
+.stagger > :nth-child(6) { animation-delay: 335ms; }
+.stagger > :nth-child(7) { animation-delay: 390ms; }
+.stagger > :nth-child(8) { animation-delay: 445ms; }
+.stagger > :nth-child(9) { animation-delay: 500ms; }
+.stagger > :nth-child(10) { animation-delay: 555ms; }
+.stagger > :nth-child(11) { animation-delay: 610ms; }
+.stagger > :nth-child(12) { animation-delay: 665ms; }
+.stagger-rows > * {
+  animation: rise 320ms ease-out both;
+}
+.stagger-rows > :nth-child(1) { animation-delay: 120ms; }
+.stagger-rows > :nth-child(2) { animation-delay: 160ms; }
+.stagger-rows > :nth-child(3) { animation-delay: 200ms; }
+.stagger-rows > :nth-child(4) { animation-delay: 240ms; }
+.stagger-rows > :nth-child(5) { animation-delay: 280ms; }
+.stagger-rows > :nth-child(6) { animation-delay: 320ms; }
+.stagger-rows > :nth-child(7) { animation-delay: 360ms; }
+.stagger-rows > :nth-child(8) { animation-delay: 400ms; }
+.stagger-rows > :nth-child(9) { animation-delay: 440ms; }
+.stagger-rows > :nth-child(10) { animation-delay: 480ms; }
+.stagger-rows > :nth-child(11) { animation-delay: 520ms; }
+.stagger-rows > :nth-child(12) { animation-delay: 560ms; }
+
+/* A red-pen underline that draws itself under a word. */
+.scribble path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 700ms ease-out 450ms forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* The date stamps in like a rubber stamp. */
+.stamp-in {
+  display: inline-block;
+  transform-origin: left center;
+  animation: stampIn 460ms cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+}
+@keyframes stampIn {
+  0% { opacity: 0; transform: scale(1.35) rotate(-4deg); }
+  60% { opacity: 1; transform: scale(0.97) rotate(0.6deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Soft breathing for the Now stamp; a pinging dot on the timetable time marker. */
+@keyframes breathe {
+  0%, 100% { transform: rotate(-2deg) scale(1); }
+  50% { transform: rotate(-2deg) scale(1.07); }
+}
+.stamp-now {
+  animation: breathe 2.2s ease-in-out infinite;
+}
+.now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 5;
+  background: var(--red);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper-2) 70%, transparent);
+  pointer-events: none;
+}
+.now-line::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: ping 2.2s ease-out infinite;
+}
+@keyframes ping {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--red) 45%, transparent); }
+  100% { box-shadow: 0 0 0 9px transparent; }
+}
+
+/* ------------------------------------------------------------------
+   Phones and tablets
+   ------------------------------------------------------------------ */
+/* The drawer slides with left/right (not transform) so iOS keeps it fixed and tappable. */
+.drawer {
+  transition: left 220ms ease, box-shadow 220ms ease;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+/* Safe areas on notched phones. */
+.mobile-bar {
+  padding-top: calc(0.5rem + env(safe-area-inset-top));
+}
+.sidebar .sb-head {
+  padding-top: calc(1.25rem + env(safe-area-inset-top));
+}
+.sidebar .sb-footer {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+/* A long press on a folder must pick it up, not open the link-preview bubble. */
+.folder,
+.folder * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+@media (max-width: 47.99rem) {
+  /* iOS zooms into any field smaller than 16px; keep fields at 16px on phones. */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+  select {
+    min-height: 2.5rem;
+  }
+  /* Roomier tap targets. */
+  .nav-tab {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Small motions
+   ------------------------------------------------------------------ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.rise {
+  animation: rise 320ms ease-out both;
+}
+.panel-in {
+  animation: rise 200ms ease-out both;
+}
+.pop {
+  animation: pop 240ms ease-out;
+}
+
+/* Thin, quiet scrollbars. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+}
+
+/* Reduce motion politely. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Make sure content sits above the grain layer. */
+#app {
+  position: relative;
+  z-index: 1;
+}
 }
